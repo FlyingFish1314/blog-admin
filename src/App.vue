@@ -1,30 +1,22 @@
 <template>
-  <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </div>
-  <router-view />
+  <el-config-provider :size="globalComSize" :locale="zhCn">
+    <div id="nav">
+      <router-link to="/">Home</router-link> |
+      <router-link to="/about">About</router-link>
+    </div>
+    <router-view> </router-view>
+  </el-config-provider>
 </template>
+<script lang="ts" setup>
+import { computed } from 'vue'
+import { useSettingStore } from '@/store/modules/setting'
+// 配置element中文
+import zhCn from 'element-plus/es/locale/lang/zh-cn'
+const SettingStore = useSettingStore()
+// 配置全局组件大小
+const globalComSize = computed(
+  (): string => SettingStore.themeConfig.globalComSize
+)
+</script>
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
-}
-</style>
+<style lang="scss"></style>
